@@ -1,5 +1,5 @@
 # Code by Simon Monk https://github.com/simonmonk/
-# modify by Sam Chen https://
+# modify by Sam Chen https://github.com/Samchy/
 
 import MFRC522
 import RPi.GPIO as GPIO
@@ -144,10 +144,14 @@ if __name__ == '__main__':
 	if args.op:
 		op = args.op
 
-	mfrc = SimpleMFRC522()
-	if op == 'w':
-		mfrc.write_dump(file, card_type)
-	elif op == 'r':
-		mfrc.read_dump(file, card_type)
-	else:
-		print args.help
+	try:
+		mfrc = SimpleMFRC522()
+		if op == 'w':
+			mfrc.write_dump(file, card_type)
+		elif op == 'r':
+			mfrc.read_dump(file, card_type)
+		else:
+			print args.help
+	except:
+		print 'clear'
+		GPIO.cleanup()
